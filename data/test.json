@@ -1,0 +1,25 @@
+{
+    "symbol": "bxpharma",
+    "financialData": {
+      "2019": {
+        "INCOME_EXPENSE": {
+          "revenue": 22816,
+          "grossProfit": 10620,
+          "operatingProfit": 5066,
+          "profitBeforeTax": 3946,
+          "financeCost": 1029,
+          "netProfit": 3038,
+          "eps": 7.48,
+          "numericMultiple": 1000000
+        },
+        "CASH_FLOW": {
+          "opCashFlow": 5028,
+          "netOpCashFlow": 2959,
+          "capex": 4416,
+          "nocfps": 7.3,
+          "numericMultiple": 1000000
+        }
+      }
+    }
+  }
+  

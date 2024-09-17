@@ -1,0 +1,3 @@
+- Add formula to calculate cap employed and such
+- Ability to edit wrong value
+- ability to input arbritrary value
