@@ -1,0 +1,43 @@
+{
+  "symbol": "olympic",
+  "financialData": {
+    "2019": {
+      "FINANCIAL_POSITION": {
+        "ppe": 2754,
+        "inProgressCapWork": 1144,
+        "currentAsset": 7058,
+        "nonCurrentAsset": 3898,
+        "totalAsset": 10957,
+        "totalEquity": 7216,
+        "currentLiability": 3181,
+        "nonCurrentLiability": 559,
+        "totalLiability": 3740,
+        "longTermLoan": 415,
+        "shortTermLoan": 1411,
+        "currentLongTermLoan": 240,
+        "depreciation": "",
+        "capitalEmployed": "",
+        "capitalInvested": "",
+        "nav": 36.09,
+        "numericMultiple": 1000000
+      },
+      "INCOME_EXPENSE": {
+        "revenue": 13733,
+        "grossProfit": 4548,
+        "operatingProfit": 2508,
+        "profitBeforeTax": 2551,
+        "financeCost": 194,
+        "netProfit": 1871,
+        "eps": 9.36,
+        "numericMultiple": 1000000
+      },
+      "CASH_FLOW": {
+        "opCashFlow": 2718,
+        "netOpCashFlow": 2106,
+        "capex": 1058,
+        "nocfps": 10.54,
+        "numericMultiple": 1000000
+      }
+    }
+  }
+}
