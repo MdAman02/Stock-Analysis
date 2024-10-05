@@ -6,7 +6,7 @@ const cache = {};
 exports.getCurrentScripData = async scrip => {
   if (cache[scrip]) return cache[scrip];
 
-  const scripData = fs.readFileSync(`./data/${scrip}.json`);
+  const scripData = JSON.parse(fs.readFileSync(`./data/${scrip}.json`));
   cache[scrip] = scripData;
   return scripData;
 }
@@ -18,12 +18,12 @@ exports.getCurrentScripData = async scrip => {
  */
 exports.getEquity = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { FINANCIAL_POSITION = {} } = specificTimeData;
   const { totalEquity } = FINANCIAL_POSITION;
 
-  checkData({ totalEquity });
+  checkData(scripTimeLine, { totalEquity });
 
   return totalEquity;
 }
@@ -35,16 +35,100 @@ exports.getEquity = async (scrip, scripTimeLine) => {
  */
 exports.getTotalAsset = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { FINANCIAL_POSITION = {} } = specificTimeData;
   const { totalAsset } = FINANCIAL_POSITION;
 
-  checkData({ totalAsset });
+  checkData(scripTimeLine, { totalAsset });
 
   return totalAsset;
 }
 
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
+exports.getCurrentAsset = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { FINANCIAL_POSITION = {} } = specificTimeData;
+  const { currentAsset } = FINANCIAL_POSITION;
+
+  checkData(scripTimeLine, { currentAsset });
+
+  return Number(currentAsset);
+}
+
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
+exports.getCurrentLiability = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { FINANCIAL_POSITION = {} } = specificTimeData;
+  const { currentLiability } = FINANCIAL_POSITION;
+
+  checkData(scripTimeLine, { currentLiability });
+
+  return Number(currentLiability);
+}
+
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
+exports.getNonCurrentAsset = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { FINANCIAL_POSITION = {} } = specificTimeData;
+  const { nonCurrentAsset } = FINANCIAL_POSITION;
+
+  checkData(scripTimeLine, { nonCurrentAsset });
+
+  return Number(nonCurrentAsset);
+}
+
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
+exports.getNonCurrentLiability = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { FINANCIAL_POSITION = {} } = specificTimeData;
+  const { nonCurrentLiability } = FINANCIAL_POSITION;
+
+  checkData(scripTimeLine, { nonCurrentLiability });
+
+  return Number(nonCurrentLiability);
+}
+
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
+exports.getRevenue = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { INCOME_EXPENSE = {} } = specificTimeData;
+  const { revenue } = INCOME_EXPENSE;
+
+  checkData(scripTimeLine, { revenue });
+
+  return revenue;
+}
 
 /**
  * 
@@ -53,12 +137,12 @@ exports.getTotalAsset = async (scrip, scripTimeLine) => {
  */
 exports.getNetProfit = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { INCOME_EXPENSE = {} } = specificTimeData;
   const { netProfit } = INCOME_EXPENSE;
 
-  checkData({ netProfit });
+  checkData(scripTimeLine, { netProfit });
 
   return netProfit;
 }
@@ -70,12 +154,12 @@ exports.getNetProfit = async (scrip, scripTimeLine) => {
  */
 exports.getOperatingProfit = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { INCOME_EXPENSE = {} } = specificTimeData;
   const { operatingProfit } = INCOME_EXPENSE;
 
-  checkData({ operatingProfit });
+  checkData(scripTimeLine, { operatingProfit });
 
   return operatingProfit;
 }
@@ -87,12 +171,12 @@ exports.getOperatingProfit = async (scrip, scripTimeLine) => {
  */
 exports.getEps = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { INCOME_EXPENSE = {} } = specificTimeData;
   const { eps } = INCOME_EXPENSE;
 
-  checkData({ eps });
+  checkData(scripTimeLine, { eps });
 
   return eps;
 }
@@ -104,12 +188,12 @@ exports.getEps = async (scrip, scripTimeLine) => {
  */
 exports.getOperatingCashFlow = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { CASH_FLOW = {} } = specificTimeData;
   const { opCashFlow } = CASH_FLOW;
 
-  checkData({ opCashFlow });
+  checkData(scripTimeLine, { opCashFlow });
 
   return opCashFlow;
 }
@@ -121,12 +205,12 @@ exports.getOperatingCashFlow = async (scrip, scripTimeLine) => {
  */
 exports.getNetOperatingCashFlow = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { CASH_FLOW = {} } = specificTimeData;
   const { netOpCashFlow } = CASH_FLOW;
 
-  checkData({ netOpCashFlow });
+  checkData(scripTimeLine, { netOpCashFlow });
 
   return netOpCashFlow;
 }
@@ -138,12 +222,12 @@ exports.getNetOperatingCashFlow = async (scrip, scripTimeLine) => {
  */
 exports.getNocFps = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
-  const specificTimeData = scripData[scripTimeLine.getFinReportSegmentName()];
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
 
   const { CASH_FLOW = {} } = specificTimeData;
   const { nocfps } = CASH_FLOW;
 
-  checkData({ nocfps });
+  checkData(scripTimeLine, { nocfps });
 
   return nocfps;
 }

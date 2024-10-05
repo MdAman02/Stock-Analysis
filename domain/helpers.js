@@ -8,11 +8,16 @@ exports.getData = (financialData, year, halfYearly, quarter) => {
     throw new DataNotPresentError();
   return data;
 }
-  
-exports.checkData = data => {
+
+/**
+ * 
+ * @param {this.scripTimeline} timeline 
+ * @param {object} data 
+ */
+exports.checkData = (timeline, data) => {
   const nullKeys = Object.keys(data).filter(key => data[key]);
   if (!nullKeys.length)
-    throw new DataNotPresentError(nullKeys);
+    throw new DataNotPresentError(timeline, nullKeys);
 }
 
 exports.scripTimeline = class {

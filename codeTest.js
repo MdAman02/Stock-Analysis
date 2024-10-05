@@ -1,22 +1,13 @@
-const _ = require('underscore');
-const { getWeightedAverage } = require('./lib/helper');
+const getDataList = data => columnHeaders.map(year => data[year] || '');
 
-const t = [
-  '2023', '2023-H1', '2024-Q2', '2023-Q1', '2023-Q2',
-]
+const columnHeaders = [ '2019', '2020', '2021', '2022', '2023' ];
+const data = {
+    '2019': 336.3,
+    '2020': 392.4,
+    '2021': 497.8,
+    '2022': 604.8,
+    '2023': 604.2
+  };
 
-const o = {
- '2023': 'dsada'
-};
-
-const v = [2, 5, 3];
-const w = [2, 1, 1];
-
-let f = ['2024', '2023-Q1', '2023-H1'];
-f = f.filter(key => {
-  const r = key.search(new RegExp(`([0-9]{4}$|.+H1)`, 'gi'))
-  console.log(r);
-  return r !== -1;
-});
-
-console.log(f);
+const r = getDataList(data);
+console.log(r);

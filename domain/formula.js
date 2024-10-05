@@ -1,6 +1,7 @@
 const _ = require('underscore');
 const { DataNotPresentError } = require("./domainError");
-const { getFinReportSegmentName, getWeightedAverage } = require('../lib/helper');
+const { getFinReportSegmentName, getWeightedAverage, roundTo } = require('../lib/helper');
+const { scripTimeline } = require('./helpers');
 
 // exports.basicFinPosSchema = {
 //   properties: {
@@ -43,30 +44,32 @@ const { getFinReportSegmentName, getWeightedAverage } = require('../lib/helper')
 
 exports.financialAnalysis = class {
   #financialData;
+  #currentTotalShares;
   constructor(scripData) {
     this.#financialData = scripData.financialData;
+    this.#currentTotalShares = scripData.totalShares;
   }
 
   #getData(year, halfYearly, quarter) {
     const data = this.#financialData[getFinReportSegmentName(year, halfYearly, quarter)];
     if (_.isEmpty(data))
-      throw new DataNotPresentError();
+      throw new DataNotPresentError(new scripTimeline(year, halfYearly, quarter));
     return data;
   }
 
-  #checkData(data) {
+  #checkData(timeline, data) {
     const nullKeys = Object.keys(data).filter(key => data[key]);
     if (!nullKeys.length)
-      throw new DataNotPresentError(nullKeys);
+      throw new DataNotPresentError(timeline, nullKeys);
   }
 
   getRoE(year, halfYearly, quarter) {
     const { FINANCIAL_POSITION = {} , INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { totalEquity } = FINANCIAL_POSITION;
     const { netProfit } = INCOME_EXPENSE;
-    this.#checkData({ totalEquity, netProfit });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { totalEquity, netProfit });
 
-    return (netProfit/totalEquity).toFixed(2);
+    return roundTo(netProfit/totalEquity);
   }
 
   getRoCE(year, halfYearly, quarter) {
@@ -74,27 +77,47 @@ exports.financialAnalysis = class {
     const { totalAsset, currentLiability } = FINANCIAL_POSITION;
     const { profitBeforeTax, financeCost } = INCOME_EXPENSE;
 
-    this.#checkData({ totalAsset, currentLiability, profitBeforeTax, financeCost });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { totalAsset, currentLiability, profitBeforeTax, financeCost });
 
-    return ((profitBeforeTax + financeCost)/(totalAsset - currentLiability)).toFixed(2);
+    return roundTo((profitBeforeTax + financeCost)/(totalAsset - currentLiability));
   }
 
   getPpeTurnover(year, halfYearly, quarter) {
     const { FINANCIAL_POSITION = {} , INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { ppe } = FINANCIAL_POSITION;
     const { revenue } = INCOME_EXPENSE;
-    this.#checkData({ revenue, ppe });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { revenue, ppe });
 
-    return (revenue/ppe).toFixed(2);
+    return roundTo(revenue/ppe);
   }
 
   getCapexRatio(year, halfYearly, quarter) {
     const { CASH_FLOW = {} , INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { capex } = CASH_FLOW;
     const { netProfit } = INCOME_EXPENSE;
-    this.#checkData({ revenue, ppe });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { netProfit, capex });
 
-    return (netProfit / capex).toFixed(3);
+    return roundTo(capex / netProfit);
+  }
+
+  getDividendPayoutRatio(year, halfYearly, quarter) {
+    const { INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
+    const { dividend, eps } = INCOME_EXPENSE;
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { dividend, eps });
+
+    return roundTo(dividend / eps);
+  }
+
+  getEquityGrowth(year1, year2) {
+    const { FINANCIAL_POSITION: FINANCIAL_POSITION1 = {} } = this.#getData(year1);
+    const { FINANCIAL_POSITION: FINANCIAL_POSITION2 = {} } = this.#getData(year2);
+    const { totalEquity: totalEquity1 } = FINANCIAL_POSITION1;
+    const { totalEquity: totalEquity2 } = FINANCIAL_POSITION2;
+
+    this.#checkData(new scripTimeline(year1), { totalEquity: totalEquity1 });
+    this.#checkData(new scripTimeline(year2), { totalEquity: totalEquity2 });
+
+    return roundTo((totalEquity1 - totalEquity2)/totalEquity1);
   }
 
   getRevenueGrowth(year1, year2) {
@@ -103,9 +126,10 @@ exports.financialAnalysis = class {
     const { revenue: revenue1 } = INCOME_EXPENSE1;
     const { revenue: revenue2 } = INCOME_EXPENSE2;
 
-    this.#checkData({ revenue1, revenue2 });
+    this.#checkData(new scripTimeline(year1), { revenue: revenue1 });
+    this.#checkData(new scripTimeline(year2), { revenue: revenue2 });
 
-    return ((revenue1 - revenue2)/revenue1).toFixed(2);
+    return roundTo((revenue1 - revenue2)/revenue1);
   }
 
   getNetProfitGrowth(year1, year2) {
@@ -114,9 +138,10 @@ exports.financialAnalysis = class {
     const { netProfit: netProfit1 } = INCOME_EXPENSE1;
     const { netProfit: netProfit2 } = INCOME_EXPENSE2;
 
-    this.#checkData({ netProfit1, netProfit2 });
+    this.#checkData(new scripTimeline(year1), { netProfit: netProfit1 });
+    this.#checkData(new scripTimeline(year2), { netProfit: netProfit2 });
 
-    return ((netProfit1 - netProfit2)/netProfit1).toFixed(2);
+    return roundTo(((netProfit1 - netProfit2)/netProfit1));
   }
 
   getOpProfitGrowth(year1, year2) {
@@ -125,9 +150,10 @@ exports.financialAnalysis = class {
     const { operatingProfit: opProfit1 } = INCOME_EXPENSE1;
     const { operatingProfit: opProfit2 } = INCOME_EXPENSE2;
 
-    this.#checkData({ opProfit1, opProfit2 });
+    this.#checkData(new scripTimeline(year1), { operatingProfit: opProfit1 });
+    this.#checkData(new scripTimeline(year2), { operatingProfit: opProfit2 });
 
-    return ((opProfit1 - opProfit2)/opProfit1).toFixed(2);
+    return roundTo((opProfit1 - opProfit2)/opProfit1);
   }
 
   getNetOperatingCFGrowth(year1, year2) {
@@ -136,45 +162,46 @@ exports.financialAnalysis = class {
     const { netOpCashFlow: netOpCashFlow1 } = CASH_FLOW1;
     const { netOpCashFlow: netOpCashFlow2 } = CASH_FLOW2;
 
-    this.#checkData({ netOpCashFlow1, netOpCashFlow2 });
+    this.#checkData(new scripTimeline(year1), { netOpCashFlow: netOpCashFlow1 });
+    this.#checkData(new scripTimeline(year2), { netOpCashFlow: netOpCashFlow2 });
 
-    return ((netOpCashFlow1 - netOpCashFlow2)/netOpCashFlow1).toFixed(2);
+    return roundTo((netOpCashFlow1 - netOpCashFlow2)/netOpCashFlow1);
   }
 
   getGrossProfitMargin(year, halfYearly, quarter) {
     const { INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { revenue, grossProfit } = INCOME_EXPENSE;
 
-    this.#checkData({ grossProfit, revenue });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { grossProfit, revenue });
 
-    return (grossProfit/revenue).toFixed(2);
+    return roundTo(grossProfit/revenue);
   }
 
   getOperatingProfitMargin(year, halfYearly, quarter) {
     const { INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { revenue, operatingProfit } = INCOME_EXPENSE;
 
-    this.#checkData({ operatingProfit, revenue });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { operatingProfit, revenue });
 
-    return (operatingProfit/revenue).toFixed(2);
+    return roundTo(operatingProfit/revenue);
   }
 
   getNetProfitMargin(year, halfYearly, quarter) {
     const { INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { revenue, netProfit } = INCOME_EXPENSE;
 
-    this.#checkData({ netProfit, revenue });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { netProfit, revenue });
 
-    return (netProfit/revenue).toFixed(2);
+    return roundTo(netProfit/revenue);
   }
 
   getDebtToEquity(year, halfYearly, quarter) {
     const { FINANCIAL_POSITION = {} } = this.#getData(year, halfYearly, quarter);
     const { totalEquity, longTermLoan, shortTermLoan, currentLongTermLoan } = FINANCIAL_POSITION;
 
-    this.#checkData({ totalEquity, longTermLoan, shortTermLoan, currentLongTermLoan });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { totalEquity, longTermLoan, shortTermLoan, currentLongTermLoan });
 
-    return ((longTermLoan + shortTermLoan + currentLongTermLoan)/totalEquity).toFixed(2);
+    return roundTo((longTermLoan + shortTermLoan + currentLongTermLoan)/totalEquity);
   }
 
   #getAnnualizedApproxData(year, halfYearly, quarter, dataPointGetter) {
@@ -194,8 +221,8 @@ exports.financialAnalysis = class {
       })
       .value();
     
-    if (!Object.keys(relevantData).length || !inputTimeLineData)
-      throw new DataNotPresentError()
+    if (!Object.keys(relevantData).length < 3 || !inputTimeLineData)
+      throw new DataNotPresentError(new scripTimeline(year, halfYearly, quarter))
 
     const listOfRelevantDatapoint = _(relevantData).map((value, key) => {
       return {
@@ -224,7 +251,7 @@ exports.financialAnalysis = class {
 
     const baseDataPoint = dataPointGetter(inputTimeLineData);
     const approxAnnualizedDataPoint = Number(baseDataPoint) * weightedAverage;
-    return +approxAnnualizedDataPoint.toFixed(4);
+    return roundTo(approxAnnualizedDataPoint);
   };
   
   getAnnualizedApproxEps(year, halfYearly, quarter) {
@@ -255,7 +282,9 @@ exports.financialAnalysis = class {
   }
 
   getCAGR(beginningValue, endingValue, years) {
-    return Math.pow(Number(endingValue)/Number(beginningValue), 1/Number(years)) - 1;
+    return roundTo(
+      Math.pow(Number(endingValue)/Number(beginningValue), 1/Number(years)) - 1
+    );
   }
 
   getNetProfitCAGR(year1, year2) {
@@ -264,7 +293,8 @@ exports.financialAnalysis = class {
     const { netProfit: netProfit1 } = INCOME_EXPENSE1;
     const { netProfit: netProfit2 } = INCOME_EXPENSE2;
 
-    this.#checkData({ netProfit1, netProfit2 });
+    this.#checkData(new scripTimeline(year1), { netProfit: netProfit1 });
+    this.#checkData(new scripTimeline(year2), { netProfit: netProfit2 });
 
     return this.getCAGR(netProfit2, netProfit1, Number(year1) - Number(year2) + 1);
   }
@@ -275,7 +305,8 @@ exports.financialAnalysis = class {
     const { operatingProfit: operatingProfit1 } = INCOME_EXPENSE1;
     const { operatingProfit: operatingProfit2 } = INCOME_EXPENSE2;
 
-    this.#checkData({ operatingProfit1, operatingProfit2 });
+    this.#checkData(new scripTimeline(year1), { operatingProfit: operatingProfit1 });
+    this.#checkData(new scripTimeline(year2), { operatingProfit: operatingProfit2 });
 
     return this.getCAGR(operatingProfit2, operatingProfit1, Number(year1) - Number(year2) + 1);
   }
@@ -286,50 +317,63 @@ exports.financialAnalysis = class {
     const { revenue: revenue1 } = INCOME_EXPENSE1;
     const { revenue: revenue2 } = INCOME_EXPENSE2;
 
-    this.#checkData({ revenue1, revenue2 });
+    this.#checkData(new scripTimeline(year1), { revenue: revenue1 });
+    this.#checkData(new scripTimeline(year2), { revenue: revenue2 });
 
     return this.getCAGR(revenue2, revenue1, Number(year1) - Number(year2) + 1);
+  }
+
+  getEquityCAGR(year1, year2) {
+    const { FINANCIAL_POSITION: FINANCIAL_POSITION1 = {} } = this.#getData(year1);
+    const { FINANCIAL_POSITION: FINANCIAL_POSITION2 = {} } = this.#getData(year2);
+    const { totalEquity: totalEquity1 } = FINANCIAL_POSITION1;
+    const { totalEquity: totalEquity2 } = FINANCIAL_POSITION2;
+
+    this.#checkData(new scripTimeline(year1), { totalEquity: totalEquity1 });
+    this.#checkData(new scripTimeline(year2), { totalEquity: totalEquity2 });
+
+    return this.getCAGR(totalEquity2, totalEquity1, Number(year1) - Number(year2) + 1);
   }
 
   getPE(marketPrice, year) {
     const { INCOME_EXPENSE = {} } = this.#getData(year);
     const { eps } = INCOME_EXPENSE;
 
-    this.#checkData({ eps });
+    this.#checkData(new scripTimeline(year), { eps });
 
-    return (marketPrice/eps).toFixed(3);
+    return roundTo(marketPrice/eps);
   }
 
   // Market Price to Operating Cash Flow Ratio (From CF Statement)
   getPriceToCashFlow(marketPrice, year, halfYearly, quarter) {
     const { CASH_FLOW = {}, FINANCIAL_POSITION = {} } = this.#getData(year, halfYearly, quarter);
     const { opCashFlow } = CASH_FLOW;
-    const { totalShares } = FINANCIAL_POSITION;
+    const { totalShares = this.#currentTotalShares } = FINANCIAL_POSITION;
 
-    this.#checkData({ opCashFlow, totalShares });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { opCashFlow, totalShares });
 
     const operatingCashFlowPerShare = Number(opCashFlow)/Number(totalShares);
-    return (Number(marketPrice) / operatingCashFlowPerShare).toFixed(3);
+    return roundTo(Number(marketPrice) / operatingCashFlowPerShare);
   }
 
   getFreeCashFlow(year, halfYearly, quarter) {
     const { CASH_FLOW = {} } = this.#getData(year, halfYearly, quarter);
     const { opCashFlow, capex } = CASH_FLOW;
 
-    this.#checkData({ opCashFlow, capex });
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { opCashFlow, capex });
 
     const freeCashFlow = Number(opCashFlow) - Number(capex);
-    return freeCashFlow;
+    return roundTo(freeCashFlow);
   }
 
   getPriceToFreeCashFlow(marketPrice, year, halfYearly, quarter) {
     const { FINANCIAL_POSITION = {} } = this.#getData(year, halfYearly, quarter);
-    const { totalShares } = FINANCIAL_POSITION;
+    const { totalShares = this.#currentTotalShares } = FINANCIAL_POSITION;
 
-    this.#checkData({ totalShares })
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { totalShares })
 
     const fcf = this.getFreeCashFlow(year, halfYearly, quarter);
     const fcfPerShare = Number(fcf/totalShares);
-    return (marketPrice/fcfPerShare).toFixed(3);
+    return roundTo(marketPrice/fcfPerShare);
   }
 };
