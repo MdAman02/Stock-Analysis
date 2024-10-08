@@ -20,7 +20,8 @@
         "capitalInvested": "",
         "nav": 47.32,
         "totalShares": 31243627,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 170.9
       },
       "INCOME_EXPENSE": {
         "revenue": 5263,
@@ -60,6 +61,7 @@
         "capitalInvested": "",
         "nav": 56.88,
         "totalShares": 31243627,
+        "cashAndEquivalent": 199.9,
         "numericMultiple": 1000000
       },
       "INCOME_EXPENSE": {
@@ -100,6 +102,7 @@
         "capitalInvested": "",
         "nav": 69.13,
         "totalShares": 31243627,
+        "cashAndEquivalent": 281.2,
         "numericMultiple": 1000000
       },
       "INCOME_EXPENSE": {
@@ -140,6 +143,7 @@
         "capitalInvested": "",
         "nav": 83.36,
         "totalShares": 31243627,
+        "cashAndEquivalent": 342.6,
         "numericMultiple": 1000000
       },
       "INCOME_EXPENSE": {
@@ -180,6 +184,7 @@
         "capitalInvested": "",
         "nav": 96.68,
         "totalShares": 31243627,
+        "cashAndEquivalent": 232.2,
         "numericMultiple": 1000000
       },
       "INCOME_EXPENSE": {

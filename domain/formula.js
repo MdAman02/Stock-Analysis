@@ -100,6 +100,15 @@ exports.financialAnalysis = class {
     return roundTo(capex / netProfit);
   }
 
+  getAssetTurnover(year, halfYearly, quarter) {
+    const { FINANCIAL_POSITION = {} , INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
+    const { totalAsset } = FINANCIAL_POSITION;
+    const { revenue } = INCOME_EXPENSE;
+    this.#checkData(new scripTimeline(year, halfYearly, quarter), { revenue, totalAsset });
+
+    return roundTo(revenue / totalAsset);
+  }
+
   getDividendPayoutRatio(year, halfYearly, quarter) {
     const { INCOME_EXPENSE = {} } = this.#getData(year, halfYearly, quarter);
     const { dividend, eps } = INCOME_EXPENSE;

@@ -231,3 +231,20 @@ exports.getNocFps = async (scrip, scripTimeLine) => {
 
   return nocfps;
 }
+
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
+exports.getCashAndEquivalent = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { FINANCIAL_POSITION = {} } = specificTimeData;
+  const { cashAndEquivalent } = FINANCIAL_POSITION;
+
+  checkData(scripTimeLine, { cashAndEquivalent });
+
+  return Number(cashAndEquivalent);
+}

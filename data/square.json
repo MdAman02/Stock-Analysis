@@ -19,7 +19,8 @@
         "capitalInvested": "",
         "nav": 86,
         "totalShares": 72146052574,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 27004
       },
       "INCOME_EXPENSE": {
         "revenue": 50866,
@@ -59,7 +60,8 @@
         "capitalInvested": "",
         "nav": 91.57,
         "totalShares": 844239058,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 32564.3
       },
       "INCOME_EXPENSE": {
         "revenue": 52926,
@@ -70,7 +72,7 @@
         "netProfit": 12739,
         "eps": 15.82,
         "costofDA": 1970,
-        "dividend": 47,
+        "dividend": 4.7,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -99,7 +101,8 @@
         "capitalInvested": "",
         "nav": 102.54,
         "totalShares": 886451010,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 43364
       },
       "INCOME_EXPENSE": {
         "revenue": 58346,
@@ -110,7 +113,7 @@
         "netProfit": 17497.6,
         "eps": 17.99,
         "costofDA": 1882.4,
-        "dividend": 60,
+        "dividend": 6,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -139,7 +142,8 @@
         "capitalInvested": "",
         "nav": 116.7,
         "totalShares": 886451010,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 48962.5
       },
       "INCOME_EXPENSE": {
         "revenue": 66406,
@@ -150,7 +154,7 @@
         "netProfit": 18176,
         "eps": 20.51,
         "costofDA": 1835,
-        "dividend": 100,
+        "dividend": 10,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -178,8 +182,9 @@
         "capitalEmployed": "",
         "capitalInvested": "",
         "nav": 129.95,
-        "totalShares": "",
-        "numericMultiple": 1000000
+        "totalShares": 886451010,
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 50094.3
       },
       "INCOME_EXPENSE": {
         "revenue": 72335,
@@ -190,7 +195,7 @@
         "netProfit": 18858,
         "eps": 21.41,
         "costofDA": 2309.8,
-        "dividend": 105,
+        "dividend": 10.5,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {

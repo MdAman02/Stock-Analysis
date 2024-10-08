@@ -4,7 +4,7 @@ const stockAnalysisService = require('../services/stockAnalysis.service');
 const { getLabel } = require('../lib/helper');
 
 exports.getScripAnalytics = async () => {
-  const scrip = 'square';
+  const scrip = 'squaretext';
   const timeline = {
     fromYear: '2019',
     upcomingYear: '2024'

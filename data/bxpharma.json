@@ -10,6 +10,8 @@
         "financeCost": 1029,
         "netProfit": 3038,
         "eps": 7.48,
+        "costofDA": 942.6,
+        "dividend": 1.5,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -36,7 +38,8 @@
         "capitalEmployed": "",
         "capitalInvested": "",
         "nav": 72.96,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 610.5
       }
     },
     "2020": {
@@ -57,7 +60,8 @@
         "capitalEmployed": 34448,
         "capitalInvested": "",
         "nav": 80.12,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 635
       },
       "INCOME_EXPENSE": {
         "revenue": 25611,
@@ -67,6 +71,8 @@
         "financeCost": 1013,
         "netProfit": 3542,
         "eps": 8.67,
+        "costofDA": 1114,
+        "dividend": 1.5,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -95,7 +101,8 @@
         "capitalEmployed": 38570,
         "capitalInvested": "",
         "nav": 83.01,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 675.4
       },
       "INCOME_EXPENSE": {
         "revenue": 29493,
@@ -105,6 +112,8 @@
         "financeCost": 0,
         "netProfit": 5178,
         "eps": 11.49,
+        "costofDA": 978.6,
+        "dividend": 3.5,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -133,7 +142,8 @@
         "capitalEmployed": "",
         "capitalInvested": "",
         "nav": 91.01,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 1168.6
       },
       "INCOME_EXPENSE": {
         "revenue": 34669,
@@ -143,6 +153,8 @@
         "financeCost": 0,
         "netProfit": 5005,
         "eps": 11.48,
+        "costofDA": 1328.2,
+        "dividend": 35,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -171,7 +183,8 @@
         "capitalEmployed": "",
         "capitalInvested": "",
         "nav": 97.91,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 1135.6
       },
       "INCOME_EXPENSE": {
         "revenue": 39266,
@@ -181,6 +194,8 @@
         "financeCost": 0,
         "netProfit": 4522,
         "eps": 10.34,
+        "costofDA": 1736.7,
+        "dividend": 3.5,
         "numericMultiple": 1000000
       },
       "CASH_FLOW": {
@@ -209,7 +224,8 @@
         "capitalEmployed": "",
         "capitalInvested": "",
         "nav": 104.17,
-        "numericMultiple": 1000000
+        "numericMultiple": 1000000,
+        "cashAndEquivalent": 1160.4
       },
       "INCOME_EXPENSE": {
         "revenue": 33050,

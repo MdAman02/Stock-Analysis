@@ -127,6 +127,7 @@ exports.getScripAnalytics = async (scrip, timeline) => {
     Number(await stockRepository.getCurrentAsset(scrip, new scripTimeline(year)))
     - Number(await stockRepository.getCurrentLiability(scrip, new scripTimeline(year)))
   );
+  const cashAndEquivalentPerYear = await dataPerYear(async year => stockRepository.getCashAndEquivalent(scrip, new scripTimeline(year)));
   const nonCurrentNetAssetPerYear = await dataPerYear(async year =>
     Number(await stockRepository.getNonCurrentAsset(scrip, new scripTimeline(year)))
     - Number(await stockRepository.getNonCurrentLiability(scrip, new scripTimeline(year)))
@@ -150,6 +151,7 @@ exports.getScripAnalytics = async (scrip, timeline) => {
   // Management Efficiency
   const roePerYear = await ratioPerYear(year => scripAnalysis.getRoE(year));
   const rocePerYear = await ratioPerYear(year => scripAnalysis.getRoCE(year));
+  const assetTurnoverPerYear = await ratioPerYear(year => scripAnalysis.getAssetTurnover(year));
   const debtToEquityPerYear = await ratioPerYear(year => scripAnalysis.getDebtToEquity(year));
   
   // Growth as Percentage
@@ -185,6 +187,7 @@ exports.getScripAnalytics = async (scrip, timeline) => {
     epsPerYear,
     equityPerYear,
     currentNetAssetPerYear,
+    cashAndEquivalentPerYear,
     nonCurrentNetAssetPerYear,
     totalAssetPerYear,
     operatingCashFlowPerYear,
@@ -197,6 +200,7 @@ exports.getScripAnalytics = async (scrip, timeline) => {
     netProfitMarginsPerYear,
     roePerYear,
     rocePerYear,
+    assetTurnoverPerYear,
     debtToEquityPerYear,
     revenueGrowthPerYear,
     operatingProfitGrowthPerYear,
