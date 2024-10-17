@@ -132,6 +132,7 @@ exports.getScripAnalytics = async (scrip, timeline) => {
     Number(await stockRepository.getNonCurrentAsset(scrip, new scripTimeline(year)))
     - Number(await stockRepository.getNonCurrentLiability(scrip, new scripTimeline(year)))
   );
+  const totalLiabilityPerYear = await dataPerYear(year => stockRepository.getTotalLiability(scrip, new scripTimeline(year)));
   const totalAssetPerYear = await dataPerYear(year => stockRepository.getTotalAsset(scrip, new scripTimeline(year)));
   const operatingCashFlowPerYear = await dataPerYear(year => stockRepository.getOperatingCashFlow(scrip, new scripTimeline(year)));
   const netOperatingCashFlowPerYear = await dataPerYear(year => stockRepository.getNetOperatingCashFlow(scrip, new scripTimeline(year)));
@@ -189,6 +190,7 @@ exports.getScripAnalytics = async (scrip, timeline) => {
     currentNetAssetPerYear,
     cashAndEquivalentPerYear,
     nonCurrentNetAssetPerYear,
+    totalLiabilityPerYear,
     totalAssetPerYear,
     operatingCashFlowPerYear,
     netOperatingCashFlowPerYear,

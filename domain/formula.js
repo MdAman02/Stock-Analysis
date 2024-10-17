@@ -126,7 +126,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { totalEquity: totalEquity1 });
     this.#checkData(new scripTimeline(year2), { totalEquity: totalEquity2 });
 
-    return roundTo((totalEquity1 - totalEquity2)/totalEquity1);
+    return roundTo((totalEquity1 - totalEquity2)/totalEquity2);
   }
 
   getRevenueGrowth(year1, year2) {
@@ -138,7 +138,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { revenue: revenue1 });
     this.#checkData(new scripTimeline(year2), { revenue: revenue2 });
 
-    return roundTo((revenue1 - revenue2)/revenue1);
+    return roundTo((revenue1 - revenue2)/revenue2);
   }
 
   getNetProfitGrowth(year1, year2) {
@@ -150,7 +150,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { netProfit: netProfit1 });
     this.#checkData(new scripTimeline(year2), { netProfit: netProfit2 });
 
-    return roundTo(((netProfit1 - netProfit2)/netProfit1));
+    return roundTo(((netProfit1 - netProfit2)/netProfit2));
   }
 
   getOpProfitGrowth(year1, year2) {
@@ -162,7 +162,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { operatingProfit: opProfit1 });
     this.#checkData(new scripTimeline(year2), { operatingProfit: opProfit2 });
 
-    return roundTo((opProfit1 - opProfit2)/opProfit1);
+    return roundTo((opProfit1 - opProfit2)/opProfit2);
   }
 
   getNetOperatingCFGrowth(year1, year2) {
@@ -174,7 +174,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { netOpCashFlow: netOpCashFlow1 });
     this.#checkData(new scripTimeline(year2), { netOpCashFlow: netOpCashFlow2 });
 
-    return roundTo((netOpCashFlow1 - netOpCashFlow2)/netOpCashFlow1);
+    return roundTo((netOpCashFlow1 - netOpCashFlow2)/netOpCashFlow2);
   }
 
   getGrossProfitMargin(year, halfYearly, quarter) {
@@ -305,7 +305,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { netProfit: netProfit1 });
     this.#checkData(new scripTimeline(year2), { netProfit: netProfit2 });
 
-    return this.getCAGR(netProfit2, netProfit1, Number(year1) - Number(year2) + 1);
+    return this.getCAGR(netProfit2, netProfit1, Number(year1) - Number(year2));
   }
 
   getOperatingProfitCAGR(year1, year2) {
@@ -317,7 +317,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { operatingProfit: operatingProfit1 });
     this.#checkData(new scripTimeline(year2), { operatingProfit: operatingProfit2 });
 
-    return this.getCAGR(operatingProfit2, operatingProfit1, Number(year1) - Number(year2) + 1);
+    return this.getCAGR(operatingProfit2, operatingProfit1, Number(year1) - Number(year2));
   }
 
   getRevenueCAGR(year1, year2) {
@@ -329,7 +329,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { revenue: revenue1 });
     this.#checkData(new scripTimeline(year2), { revenue: revenue2 });
 
-    return this.getCAGR(revenue2, revenue1, Number(year1) - Number(year2) + 1);
+    return this.getCAGR(revenue2, revenue1, Number(year1) - Number(year2));
   }
 
   getEquityCAGR(year1, year2) {
@@ -341,7 +341,7 @@ exports.financialAnalysis = class {
     this.#checkData(new scripTimeline(year1), { totalEquity: totalEquity1 });
     this.#checkData(new scripTimeline(year2), { totalEquity: totalEquity2 });
 
-    return this.getCAGR(totalEquity2, totalEquity1, Number(year1) - Number(year2) + 1);
+    return this.getCAGR(totalEquity2, totalEquity1, Number(year1) - Number(year2));
   }
 
   getPE(marketPrice, year) {

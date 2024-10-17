@@ -50,6 +50,23 @@ exports.getTotalAsset = async (scrip, scripTimeLine) => {
  * @param {string} scrip 
  * @param {scripTimeline} scripTimeLine 
  */
+exports.getTotalLiability = async (scrip, scripTimeLine) => {
+  const scripData = await this.getCurrentScripData(scrip);
+  const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];
+
+  const { FINANCIAL_POSITION = {} } = specificTimeData;
+  const { totalLiability } = FINANCIAL_POSITION;
+
+  checkData(scripTimeLine, { totalLiability });
+
+  return totalLiability;
+}
+
+/**
+ * 
+ * @param {string} scrip 
+ * @param {scripTimeline} scripTimeLine 
+ */
 exports.getCurrentAsset = async (scrip, scripTimeLine) => {
   const scripData = await this.getCurrentScripData(scrip);
   const specificTimeData = scripData.financialData[scripTimeLine.getFinReportSegmentName()];

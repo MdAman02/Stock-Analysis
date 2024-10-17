@@ -1,0 +1,210 @@
+{
+  "symbol": "berger",
+  "financialData": {
+    "2020": {
+      "FINANCIAL_POSITION": {
+        "ppe": 4516.6,
+        "inProgressCapWork": 612.9,
+        "currentAsset": 7825.4,
+        "cashAndEquivalent": 3141.3,
+        "nonCurrentAsset": 6058.8,
+        "totalAsset": 13884.3,
+        "totalEquity": 9470.3,
+        "currentLiability": 3577.6,
+        "nonCurrentLiability": 836.3,
+        "totalLiability": 4414,
+        "longTermLoan": 0,
+        "shortTermLoan": 0,
+        "currentLongTermLoan": 0,
+        "capitalEmployed": "",
+        "capitalInvested": "",
+        "nav": 204.2,
+        "totalShares": "",
+        "numericMultiple": 1000000
+      },
+      "INCOME_EXPENSE": {
+        "revenue": 18929.7,
+        "grossProfit": 9020.6,
+        "operatingProfit": 3208.4,
+        "profitBeforeTax": 3273.2,
+        "financeCost": 3,
+        "netProfit": 2422,
+        "eps": 52.22,
+        "costofDA": 613.1,
+        "dividend": 29.5,
+        "numericMultiple": 1000000
+      },
+      "CASH_FLOW": {
+        "opCashFlow": 4494.2,
+        "netOpCashFlow": 3798.4,
+        "capex": 1103.8,
+        "nocfps": 81.9,
+        "numericMultiple": 1000000
+      }
+    },
+    "2021": {
+      "FINANCIAL_POSITION": {
+        "ppe": 4955.1,
+        "inProgressCapWork": 755.2,
+        "currentAsset": 9642.3,
+        "cashAndEquivalent": 4125.3,
+        "nonCurrentAsset": 6780.8,
+        "totalAsset": 16423.2,
+        "totalEquity": 10795.7,
+        "currentLiability": 4864.2,
+        "nonCurrentLiability": 763.2,
+        "totalLiability": 5627.5,
+        "longTermLoan": 0,
+        "shortTermLoan": 0,
+        "currentLongTermLoan": 0,
+        "capitalEmployed": "",
+        "capitalInvested": "",
+        "nav": 232.78,
+        "totalShares": "",
+        "numericMultiple": 1000000
+      },
+      "INCOME_EXPENSE": {
+        "revenue": 16877.3,
+        "grossProfit": 6808.6,
+        "operatingProfit": 3680.7,
+        "profitBeforeTax": 3642,
+        "financeCost": 36.5,
+        "netProfit": 2693.5,
+        "eps": 58.03,
+        "costofDA": 600.3,
+        "dividend": 37.5,
+        "numericMultiple": 1000000
+      },
+      "CASH_FLOW": {
+        "opCashFlow": 4326.7,
+        "netOpCashFlow": 3343.6,
+        "capex": 1046.3,
+        "nocfps": 72.1,
+        "numericMultiple": 1000000
+      }
+    },
+    "2022": {
+      "FINANCIAL_POSITION": {
+        "ppe": 5361,
+        "inProgressCapWork": 1012.6,
+        "currentAsset": 9401,
+        "cashAndEquivalent": 2441.6,
+        "nonCurrentAsset": 7546,
+        "totalAsset": 16947,
+        "totalEquity": 10545.7,
+        "currentLiability": 5619.3,
+        "nonCurrentLiability": 781.9,
+        "totalLiability": 6401.3,
+        "longTermLoan": 0,
+        "shortTermLoan": 0,
+        "currentLongTermLoan": 0,
+        "capitalEmployed": "",
+        "capitalInvested": "",
+        "nav": 227.39,
+        "totalShares": "",
+        "numericMultiple": 1000000
+      },
+      "INCOME_EXPENSE": {
+        "revenue": 22194.7,
+        "grossProfit": 7750.4,
+        "operatingProfit": 4093.4,
+        "profitBeforeTax": 3999.7,
+        "financeCost": 78.1,
+        "netProfit": 2906.9,
+        "eps": 62.68,
+        "costofDA": 753.6,
+        "dividend": 40,
+        "numericMultiple": 1000000
+      },
+      "CASH_FLOW": {
+        "opCashFlow": 4051.3,
+        "netOpCashFlow": 2941.6,
+        "capex": 1290.7,
+        "nocfps": 63.43,
+        "numericMultiple": 1000000
+      }
+    },
+    "2023": {
+      "FINANCIAL_POSITION": {
+        "ppe": 5759.4,
+        "inProgressCapWork": 1273.8,
+        "currentAsset": 11721.2,
+        "cashAndEquivalent": 3876.9,
+        "nonCurrentAsset": 8279.5,
+        "totalAsset": 20000.8,
+        "totalEquity": 12975.5,
+        "currentLiability": 6287.4,
+        "nonCurrentLiability": 737.9,
+        "totalLiability": 7025.3,
+        "longTermLoan": 0,
+        "shortTermLoan": 0,
+        "currentLongTermLoan": 0,
+        "capitalEmployed": "",
+        "capitalInvested": "",
+        "nav": 279.78,
+        "totalShares": "",
+        "numericMultiple": 1000000
+      },
+      "INCOME_EXPENSE": {
+        "revenue": 25898.7,
+        "grossProfit": 7653.1,
+        "operatingProfit": 4110,
+        "profitBeforeTax": 3965,
+        "financeCost": 21.6,
+        "netProfit": 2893.5,
+        "eps": 64.91,
+        "costofDA": 826.5,
+        "dividend": 40,
+        "numericMultiple": 1000000
+      },
+      "CASH_FLOW": {
+        "opCashFlow": 4619.9,
+        "netOpCashFlow": 3445.9,
+        "capex": 1397.9,
+        "nocfps": 74.3,
+        "numericMultiple": 1000000
+      }
+    },
+    "2024": {
+      "FINANCIAL_POSITION": {
+        "ppe": 6030.9,
+        "inProgressCapWork": 1580.9,
+        "currentAsset": 16257.9,
+        "cashAndEquivalent": 7665,
+        "nonCurrentAsset": 8845,
+        "totalAsset": 25102.9,
+        "totalEquity": 14355.2,
+        "currentLiability": 9676.9,
+        "nonCurrentLiability": 1070.7,
+        "totalLiability": 10747.6,
+        "longTermLoan": 0,
+        "shortTermLoan": 0,
+        "currentLongTermLoan": 0,
+        "capitalEmployed": "",
+        "capitalInvested": "",
+        "nav": 309.5,
+        "totalShares": "",
+        "numericMultiple": 1000000
+      },
+      "INCOME_EXPENSE": {
+        "revenue": 26251.1,
+        "grossProfit": 8469,
+        "operatingProfit": 4208.2,
+        "profitBeforeTax": 4232.5,
+        "financeCost": 234.6,
+        "netProfit": 3207.9,
+        "eps": 69.92,
+        "costofDA": 883.8,
+        "dividend": 50,
+        "numericMultiple": 1000000
+      },
+      "CASH_FLOW": {
+        "opCashFlow": 7672,
+        "netOpCashFlow": 6476.3,
+        "capex": 1152.8,
+        "nocfps": 139.64,
+        "numericMultiple": 1000000
+      }
+    }
+  }
+}

@@ -1,12 +1,11 @@
-const { stringify } = require('csv-stringify/sync');
 const _ = require('underscore');
 const stockAnalysisService = require('../services/stockAnalysis.service');
 const { getLabel } = require('../lib/helper');
 
 exports.getScripAnalytics = async () => {
-  const scrip = 'squaretext';
+  const scrip = 'heidelbcem';
   const timeline = {
-    fromYear: '2019',
+    fromYear: '2021',
     upcomingYear: '2024'
   };
 
